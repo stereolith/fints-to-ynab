@@ -1,0 +1,14 @@
+{
+    banking: {
+        blz: "12345678",
+        iban: "DE1234567891234567890"
+        login: "user",
+        pin: "01234",
+        fints_endpoint: "https://banking-dkb.s-fints-pt-dkb.de/fints30"
+    },
+    ynab: {
+        access_token: "xxx",
+        budget_id: "123",
+        account_id: "123",
+    }
+}
