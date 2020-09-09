@@ -33,7 +33,7 @@ for transaction in filtered_transactions:
 
 
 if filtered_transactions:
-    #ynab.send_transactions(config, filtered_transactions)
+    ynab.send_transactions(config, filtered_transactions)
     print(f'{len(filtered_transactions)} transactions were imported to YNAB.')
 else:
     print('No new transactions were imported to YNAB.')
