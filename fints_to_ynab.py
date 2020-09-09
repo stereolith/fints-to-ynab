@@ -29,7 +29,7 @@ transactions = fints_importer.get_transactions(config)
 filtered_transactions = filter_duplicates(transactions)
 
 for transaction in filtered_transactions:
-    db.insert({'hash': transaction_hash(transaction), 'data': transaction.__repr__()})
+    db.insert({'hash': transaction_hash(transaction)})
 
 
 if filtered_transactions:
