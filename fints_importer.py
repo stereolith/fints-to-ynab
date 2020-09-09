@@ -26,7 +26,7 @@ def get_transactions(config):
 
     # get transactions
     account = next(filter(lambda a: a.iban == config['fints']['iban'], accounts), None)
-    transactions = f.get_transactions(account, date.today()-timedelta(days=1))
+    transactions = f.get_transactions(account, date.today()-timedelta(days=10))
 
     def transform_fints_transaction(transaction):
         return Transaction(

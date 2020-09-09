@@ -16,13 +16,14 @@ transactions = fints_importer.get_transactions(config)
 
 if transactions:
     req = ynab.send_transactions(config, transactions)
-    if 'error' in req:
-        print(f'YNAB import failed with Error: {req}')
-    elif 'data' in req:
-        if req['data']['duplicate_import_ids']:
-            print(f'{len(req["data"]["duplicate_import_ids"])} duplicate transations were not imported')
-        if req['data']['transaction_ids']:
-            print(f'{len(req["data"]["transaction_ids"])} transactions imported to YNAB')
+    if req:
+        if 'error' in req:
+            print(f'YNAB import failed with Error: {req}')
+        elif 'data' in req:
+            if req['data']['duplicate_import_ids']:
+                print(f'{len(req["data"]["duplicate_import_ids"])} duplicate transations were not imported')
+                if req['data']['transaction_ids']:
+                    print(f'{len(req["data"]["transaction_ids"])} transactions imported to YNAB')
     else:
         print('Connection to YNAB API failed')
 else:

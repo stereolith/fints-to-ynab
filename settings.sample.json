@@ -10,5 +10,6 @@
         "access_token": "xxx",
         "budget_id": "123",
         "account_id": "123",
+        "cash_account_id": ""
     }
 }
