@@ -1,8 +1,6 @@
 import json
 import fints_importer
 import ynab
-from tinydb import TinyDB, Query
-import hashlib
 
 def load_config():
     try:
@@ -12,29 +10,20 @@ def load_config():
         print("settings.json not found")
         exit()
 
-def transaction_hash(transaction):
-    return hashlib.md5(transaction.__repr__().encode()).hexdigest()
-
-def filter_duplicates(transactions):
-    Transaction = Query()
-    return list(filter(lambda t: not db.search(Transaction.hash == transaction_hash(t)), transactions))
-
-
-# database with hashed transactions for duplicate checking
-db = TinyDB('db.json')
-
 config = load_config()
 
 transactions = fints_importer.get_transactions(config)
-filtered_transactions = filter_duplicates(transactions)
 
-for transaction in filtered_transactions:
-    db.insert({'hash': transaction_hash(transaction)})
-
-
-if filtered_transactions:
-    ynab.send_transactions(config, filtered_transactions)
-    print(f'{len(filtered_transactions)} transactions were imported to YNAB.')
+if transactions:
+    req = ynab.send_transactions(config, transactions)
+    if 'error' in req:
+        print(f'YNAB import failed with Error: {req}')
+    elif 'data' in req:
+        if req['data']['duplicate_import_ids']:
+            print(f'{len(req["data"]["duplicate_import_ids"])} duplicate transations were not imported')
+        if req['data']['transaction_ids']:
+            print(f'{len(req["data"]["transaction_ids"])} transactions imported to YNAB')
+    else:
+        print('Connection to YNAB API failed')
 else:
-    print('No new transactions were imported to YNAB.')
-
+    print('No transactions were found')

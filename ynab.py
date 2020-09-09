@@ -10,12 +10,13 @@ def send_transactions(config, transactions):
             amount=transaction.amount,
             memo=transaction.memo,
             cleared='cleared',
-            payee_name=transaction.payee
+            payee_name=transaction.payee,
+            import_id=f'API:{transaction.amount}:{transaction.date}:{transaction.memo[-1]}'
         )
 
     ynab = YNAB(config['ynab']['access_token'])
 
     transaction_req = list(map(create_request, transactions))
 
-    ynab.transactions.create_transactions(config['ynab']['budget_id'], transaction_req)
+    return ynab.transactions.create_transactions(config['ynab']['budget_id'], transaction_req)
 
