@@ -9,7 +9,7 @@ def send_transactions(config, transactions):
             date=transaction.date,
             amount=transaction.amount,
             memo=transaction.memo,
-            cleared=True,
+            cleared='cleared',
             payee_name=transaction.payee
         )
 
@@ -18,3 +18,4 @@ def send_transactions(config, transactions):
     transaction_req = list(map(create_request, transactions))
 
     ynab.transactions.create_transactions(config['ynab']['budget_id'], transaction_req)
+
