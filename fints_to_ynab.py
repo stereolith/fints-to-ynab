@@ -1,4 +1,5 @@
 import json
+import datetime
 import fints_importer
 import ynab
 
@@ -11,6 +12,8 @@ def load_config():
         exit()
 
 config = load_config()
+
+print(datetime.datetime.now().isoformat())
 
 transactions = fints_importer.get_transactions(config)
 
