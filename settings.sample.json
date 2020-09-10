@@ -1,5 +1,5 @@
 {
-    "banking": {
+    "fints": {
         "blz": "12345678",
         "iban": "DE1234567891234567890"
         "login": "user",
