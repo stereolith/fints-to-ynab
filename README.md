@@ -15,8 +15,9 @@ Connection details need to be set up in a `settings.json` file in the project fo
 - **cash_account_id** (optional): If set, transactions that are identified as cash withdrawls are imported as transfers to this account.
 
 ## Install
-Install dependencies:
-`pip3 install -r requirements.txt`
+- requires at least python3.6 
+- Install dependencies:
+  `pip3 install -r requirements.txt`
 
 ## Run 
 Run the script with:
