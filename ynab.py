@@ -2,17 +2,17 @@ from ynab_sdk import YNAB
 from ynab_sdk.api.models.requests.transaction import TransactionRequest
 
 
-def send_transactions(config, transactions):
-    ynab = YNAB(config['ynab']['access_token'])
+def send_transactions(ynab_config, ynab_account_id, transactions):
+    ynab = YNAB(ynab_config['access_token'])
 
     transfer_payee_id = ""
-    if config['ynab']['cash_account_id'] != "":
-        cash_account = ynab.accounts.get_account(config['ynab']['budget_id'], config['ynab']['cash_account_id'])
+    if ynab_config['cash_account_id'] != "":
+        cash_account = ynab.accounts.get_account(ynab_config['budget_id'], ynab_config['cash_account_id'])
         transfer_payee_id = cash_account.data.account.transfer_payee_id
 
     def create_request(transaction):
         return TransactionRequest(
-            account_id = config['ynab']['account_id'],
+            account_id = ynab_account_id,
             date = transaction.date,
             amount = transaction.amount,
             memo = transaction.memo[:199] if transaction.memo else None,
@@ -24,4 +24,4 @@ def send_transactions(config, transactions):
 
     transaction_req = list(map(create_request, transactions))
 
-    return ynab.transactions.create_transactions(config['ynab']['budget_id'], transaction_req)
+    return ynab.transactions.create_transactions(ynab_config['budget_id'], transaction_req)

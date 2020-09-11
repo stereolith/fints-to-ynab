@@ -3,12 +3,12 @@ from fints.utils import minimal_interactive_cli_bootstrap
 from datetime import date, timedelta
 from models import Transaction
 
-def get_transactions(config):
+def get_transactions(bank_config):
     f = FinTS3PinTanClient(
-        config['fints']['blz'],
-        config['fints']['login'],
-        config['fints']['pin'],
-        config['fints']['fints_endpoint'],
+        bank_config['blz'],
+        bank_config['login'],
+        bank_config['pin'],
+        bank_config['fints_endpoint'],
         product_id='33D93BB1B017D422A87837C01'
     )
 
@@ -25,7 +25,7 @@ def get_transactions(config):
         accounts = f.get_sepa_accounts()
 
     # get transactions
-    account = next(filter(lambda a: a.iban == config['fints']['iban'], accounts), None)
+    account = next(filter(lambda a: a.iban == bank_config['iban'], accounts), None)
     transactions = f.get_transactions(account, date.today()-timedelta(days=10))
 
     def transform_fints_transaction(transaction):
