@@ -17,8 +17,8 @@ def send_transactions(ynab_config, ynab_account_id, transactions):
             amount = transaction.amount,
             memo = transaction.memo[:199] if transaction.memo else None,
             cleared = 'cleared',
-            payee_name = transaction.payee if transfer_payee_id == "" else None,
-            payee_id = transfer_payee_id if transfer_payee_id != "" else None,
+            payee_name = None if transaction.cash_withdrawl and transfer_payee_id != "" else transaction.payee,
+            payee_id = transfer_payee_id if transaction.cash_withdrawl and transfer_payee_id != "" else None,
             import_id = f'API:{transaction.amount}:{transaction.date}'
         )
 
