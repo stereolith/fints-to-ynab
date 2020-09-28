@@ -8,7 +8,6 @@ def transform_fints_transaction(transaction, parse_paypal=False):
     memo = transaction['purpose']
 
     if parse_paypal and 'PayPal' in payee and 'Ihr Einkauf' in memo and 'AWV-MELDEPFLICHT' in memo:
-        print('PayPal')
         payee = memo[memo.find('Ihr Einkauf bei ') + 16 : memo.find('AWV-MELDEPFLICHT')]
         memo = 'PayPal'
 
