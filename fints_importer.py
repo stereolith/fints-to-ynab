@@ -42,7 +42,6 @@ def get_transactions(bank_config):
 
     # get transactions
     account = next(filter(lambda a: a.iban == bank_config.iban, accounts), None)
-    print(account)
     transactions = f.get_transactions(account, date.today()-timedelta(days=10))
 
     return list(map(lambda t: transform_fints_transaction(t.data, parse_paypal=bank_config.parse_paypal), transactions))
