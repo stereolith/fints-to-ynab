@@ -3,20 +3,30 @@ from fints.utils import minimal_interactive_cli_bootstrap
 from datetime import date, timedelta
 from models import Transaction
 
-def transform_fints_transaction(transaction, parse_paypal=False):
-    payee = transaction['applicant_name']
-    memo = transaction['purpose']
-
-    if parse_paypal and 'PayPal' in payee and 'Ihr Einkauf' in memo and 'AWV-MELDEPFLICHT' in memo:
+def transform_paypal_transaction(payee, memo):
+    if 'PayPal' in payee and 'Ihr Einkauf' in memo and 'AWV-MELDEPFLICHT' in memo:
         payee = memo[memo.find('Ihr Einkauf bei ') + 16 : memo.find('AWV-MELDEPFLICHT')]
         memo = 'PayPal'
+    return payee, memo
+
+def is_cash_withdrawl(transaction):
+    if transaction['posting_text'] and "BARGELD" in transaction['posting_text']:
+        return True
+    return False
+
+def transform_fints_transaction(transaction, parse_paypal=False):
+    payee = transaction['applicant_name'] or ''
+    memo = transaction['purpose'] or ''
+
+    if parse_paypal:
+        payee, memo = transform_paypal_transaction(payee, memo)
 
     return Transaction(
         date=transaction['date'].isoformat(),
         amount=int(transaction['amount'].amount * 1000),
         payee=payee,
         memo=memo,
-        cash_withdrawl= True if "BARGELD" in transaction['posting_text'] else False
+        cash_withdrawl = is_cash_withdrawl(transaction)
     )
 
 def get_transactions(bank_config):
