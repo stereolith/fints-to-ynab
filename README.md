@@ -25,5 +25,5 @@ Multiple bank accounts can be setup in the array `"fints"`.
 
 ## Run 
 Run the script with:
-`python3 fints-to-ynab.py`
+`python3 fints_to_ynab.py`
 
