@@ -27,3 +27,7 @@ Multiple bank accounts can be setup in the array `"fints"`.
 Run the script with:
 `python3 fints_to_ynab.py`
 
+### Crontab
+This script can be run periodically with cron.
+This example crontab entry runs the script every 3 hours and writes STDOUT to a logfile (adjust the path to the cloned repository and the python version):
+`0 */3 * * * cd /path/to/fints-to-ynab/ && venv/bin/python3.6 fints_to_ynab.py >> import.log`
