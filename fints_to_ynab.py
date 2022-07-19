@@ -29,6 +29,7 @@ class Config:
     access_token: str
     budget_id: str
     cash_account_id: str = ''
+    dry_run: bool = False
     fints: List[FintsConfig] = []
 
     def __init__(self, config_file_path: str):
@@ -38,6 +39,8 @@ class Config:
                 c_dict = json.load(f)
                 self.access_token = c_dict['ynab']['access_token']
                 self.budget_id = c_dict['ynab']['budget_id']
+                if 'dry_run' in c_dict:
+                    self.dry_run = c_dict['dry_run']
                 if c_dict['ynab']['cash_account_id']:
                     self.cash_account_id = c_dict['ynab']['cash_account_id']
 
@@ -55,7 +58,13 @@ if __name__ == "__main__":
     for bank_config in config.fints:
         transactions = fints_importer.get_transactions(bank_config)
 
+        if config.dry_run:
+            print(transactions)
+            print('Dry run, no transactions imported for this account')
+            continue
+
         if transactions:
-            ynab.send_transactions(config, bank_config, transactions)
+            print('')
+            #ynab.send_transactions(config, bank_config, transactions)
         else:
             print('Account {bank_config.iban}: No transactions were found')
