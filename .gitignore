@@ -2,8 +2,10 @@ venv/
 settings.json
 db.json
 __pycache__
+python-fints/
 
 .DS_Store
 .AppleDouble
 .LSOverride
 import.log
+.vscode
