@@ -13,6 +13,7 @@ class FintsConfig:
     fints_endpoint: str
     ynab_account_id: str
     parse_paypal: bool = False
+    remove_paypal_transactions: bool = False
 
     def __init__(self, bank_dict):
         # init fints bank config object from dict
@@ -24,6 +25,8 @@ class FintsConfig:
         self.ynab_account_id = bank_dict['ynab_account_id']
         if 'parse_paypal' in bank_dict:
             self.parse_paypal = bank_dict['parse_paypal']
+        if 'remove_paypal_transactions' in bank_dict:
+            self.remove_paypal_transactions = bank_dict['remove_paypal_transactions']
 
 class Config:
     access_token: str

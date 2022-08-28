@@ -1,3 +1,4 @@
+import re
 from fints.client import FinTS3PinTanClient
 from fints.utils import minimal_interactive_cli_bootstrap
 from datetime import date, timedelta
@@ -56,6 +57,12 @@ def get_transactions(bank_config):
 
     # get transactions
     account = next(filter(lambda a: a.iban == bank_config.iban, accounts), None)
-    transactions = f.get_transactions(account, date.today()-timedelta(days=10))
+    transactions = f.get_transactions(account, date.today()-timedelta(days=14))
 
-    return list(map(lambda t: transform_fints_transaction(t.data, parse_paypal=bank_config.parse_paypal), transactions))
+    parsed_transactions = list(map(lambda t: transform_fints_transaction(t.data, parse_paypal=bank_config.parse_paypal), transactions))
+
+    # filter paypal transactions (if configured)
+    if bank_config.remove_paypal_transactions:
+        parsed_transactions = list(filter(lambda t: not re.match('paypal', t.payee, re.IGNORECASE), parsed_transactions))
+
+    return parsed_transactions

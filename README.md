@@ -7,6 +7,9 @@ The last 10 days of transactions are imported. It's safe to run this script peri
 ## Settings
 Connection details need to be set up in a `settings.json` file in the project folder, see an example at `settings.sample.json`.
 
+#### general options
+- **dry_run**: (optional) If `true`, prevent sending transaction data to the YNAB API.
+
 #### `"fints"` bank accounts
 Multiple bank accounts can be setup in the array `"fints"`.
 - **fints_endpoint**: This is the FinTS endpoint for your bank. An incomplete list of endpoints can be found [here](https://raw.githubusercontent.com/jhermsmeier/fints-institute-db/master/fints-institutes.json).

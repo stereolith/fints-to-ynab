@@ -7,7 +7,8 @@
             "pin": "01234",
             "fints_endpoint": "https://banking-dkb.s-fints-pt-dkb.de/fints30",
             "ynab_account_id": "123",
-            "parse_paypal": true
+            "parse_paypal": true,
+            "remove_paypal_transactions": false
         }
     ],
     "ynab": {
