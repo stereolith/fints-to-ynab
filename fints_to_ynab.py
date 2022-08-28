@@ -64,7 +64,6 @@ if __name__ == "__main__":
             continue
 
         if transactions:
-            print('')
-            #ynab.send_transactions(config, bank_config, transactions)
+            ynab.send_transactions(config, bank_config, transactions)
         else:
             print('Account {bank_config.iban}: No transactions were found')
