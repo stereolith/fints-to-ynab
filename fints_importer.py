@@ -62,7 +62,6 @@ def get_transactions(bank_config):
     parsed_transactions = list(map(lambda t: transform_fints_transaction(t.data, parse_paypal=bank_config.parse_paypal), transactions))
 
     # filter paypal transactions (if configured)
-    print(parsed_transactions)
     if bank_config.remove_paypal_transactions:
         parsed_transactions = list(filter(lambda t: not re.match('paypal', t.payee, re.IGNORECASE), parsed_transactions))
 
