@@ -17,9 +17,9 @@ def is_cash_withdrawl(transaction):
 
 def transform_fints_transaction(transaction, parse_paypal=False):
     payee = ''
-    if transaction['deviate_applicant']:
+    if 'deviate_applicant' in transaction and transaction['deviate_applicant']:
         payee = transaction['deviate_applicant']
-    elif transaction['applicant_name']:
+    elif 'applicant_name' in transaction and transaction['applicant_name']:
         payee = transaction['applicant_name']
 
     memo = transaction['purpose'] or ''
@@ -62,6 +62,7 @@ def get_transactions(bank_config):
     parsed_transactions = list(map(lambda t: transform_fints_transaction(t.data, parse_paypal=bank_config.parse_paypal), transactions))
 
     # filter paypal transactions (if configured)
+    print(parsed_transactions)
     if bank_config.remove_paypal_transactions:
         parsed_transactions = list(filter(lambda t: not re.match('paypal', t.payee, re.IGNORECASE), parsed_transactions))
 
