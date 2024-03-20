@@ -27,9 +27,9 @@ def mock_fints_transaction(purpose, applicant_name, posting_text):
         'purpose': purpose,
         'applicant_bin': 'ABCDEFMMXXX',
         'applicant_iban': 'DE12345678912345678901',
-        'applicant_name': applicant_name,
+        'applicant_name': '',
         'return_debit_notes': '011',
-        'deviate_applicant': 'REWE SAGT DANKE. 192841//Stadt/DE'
+        'deviate_applicant': applicant_name
     }
 
 date = Date(year=2019, month=11, day=10)
