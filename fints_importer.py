@@ -44,6 +44,9 @@ def get_transactions(bank_config):
         product_id='33D93BB1B017D422A87837C01'
     )
 
+    if bank_config.tan_medium:
+        f.selected_tan_medium = bank_config.tan_medium
+
     minimal_interactive_cli_bootstrap(f)
 
     with f:

@@ -5,6 +5,7 @@
             "iban": "DE1234567891234567890",
             "login": "user",
             "pin": "01234",
+            "tan_medium": "iPhoneTan",
             "fints_endpoint": "https://banking-dkb.s-fints-pt-dkb.de/fints30",
             "ynab_account_id": "123",
             "parse_paypal": true,

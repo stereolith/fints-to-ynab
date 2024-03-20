@@ -67,6 +67,7 @@ def test_config(mock_settings_file_path):
     assert bank.iban == "DE1234567891234567890"
     assert bank.login == "user"
     assert bank.pin == "01234"
+    assert bank.tan_medium == "iPhoneTan"
     assert bank.fints_endpoint == "https://banking-dkb.s-fints-pt-dkb.de/fints30"
     assert bank.ynab_account_id == "123"
     assert bank.parse_paypal == True

@@ -15,6 +15,7 @@ Multiple bank accounts can be setup in the array `"fints"`.
 - **fints_endpoint**: This is the FinTS endpoint for your bank. An incomplete list of endpoints can be found [here](https://raw.githubusercontent.com/jhermsmeier/fints-institute-db/master/fints-institutes.json).
 - **ynab_account_id**: Transactions fetched from this bank account are assigned to this YNAB account. In YNAB's web interface on the account page this is the last ID in the URL.
 - **parse_paypal**: (optional): If `true`, the script tries to extract the merchant's name in PayPal transactions to avoid these transactions being assigned to the genreic *PayPal* payee. The memo of these transactions is set to *PayPal*.
+- **tan_medium** (optional): Name of the tan medium to use ([fixes this issue with DKB bank](https://github.com/raphaelm/python-fints/issues/121))
 
 #### `"ynab"`
 - **access_token**: A YNAB API access token (Request it in the YNAB [developer settings](https://app.youneedabudget.com/settings/developer)).

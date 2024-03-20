@@ -10,6 +10,7 @@ class FintsConfig:
     iban: str
     login: str
     pin: str
+    tan_medium: str
     fints_endpoint: str
     ynab_account_id: str
     parse_paypal: bool = False
@@ -21,6 +22,8 @@ class FintsConfig:
         self.iban = bank_dict['iban']
         self.login = bank_dict['login']
         self.pin = bank_dict['pin']
+        if 'remove_paypal_transactions' in bank_dict:
+            self.tan_medium = bank_dict['tan_medium']
         self.fints_endpoint = bank_dict['fints_endpoint']
         self.ynab_account_id = bank_dict['ynab_account_id']
         if 'parse_paypal' in bank_dict:
